@@ -1,0 +1,5 @@
+C:/Users/alejandro/Documents/Scratch3/socket.io-client-cpp/CMakeFiles/sioclient.dir
+C:/Users/alejandro/Documents/Scratch3/socket.io-client-cpp/CMakeFiles/sioclient_tls.dir
+C:/Users/alejandro/Documents/Scratch3/socket.io-client-cpp/CMakeFiles/INSTALL.dir
+C:/Users/alejandro/Documents/Scratch3/socket.io-client-cpp/CMakeFiles/ALL_BUILD.dir
+C:/Users/alejandro/Documents/Scratch3/socket.io-client-cpp/CMakeFiles/ZERO_CHECK.dir

@@ -5,6 +5,7 @@
 //  Created by Melo Yao on 4/3/15.
 //  Copyright (c) 2015 Melo Yao. All rights reserved.
 //
+#include "stdafx.h"
 
 #include "sio_client_impl.h"
 #include <sstream>
@@ -42,7 +43,7 @@ namespace sio
         // Initialize the Asio transport policy
         m_client.init_asio();
 
-        // Bind the clients we are using
+		// Bind the clients we are using
         using websocketpp::lib::placeholders::_1;
         using websocketpp::lib::placeholders::_2;
         m_client.set_open_handler(lib::bind(&client_impl::on_open,this,_1));
@@ -103,6 +104,8 @@ namespace sio
         m_http_headers = headers;
 
         this->reset_states();
+		m_client.start_perpetual();
+
         m_client.get_io_service().dispatch(lib::bind(&client_impl::connect_impl,this,uri,m_query_string));
         m_network_thread.reset(new thread(lib::bind(&client_impl::run_loop,this)));//uri lifecycle?
 
@@ -278,8 +281,8 @@ namespace sio
     {
         if(ec || m_con.expired())
         {
-            if (ec != boost::asio::error::operation_aborted)
-                LOG("ping exit,con is expired?"<<m_con.expired()<<",ec:"<<ec.message()<<endl){};
+        //    if (ec != boost::asio::error::operation_aborted)
+        //        LOG("ping exit,con is expired?"<<m_con.expired()<<",ec:"<<ec.message()<<endl){};
             return;
         }
         packet p(packet::frame_ping);
@@ -493,7 +496,7 @@ namespace sio
             m_ping_timer.reset(new boost::asio::deadline_timer(m_client.get_io_service()));
             boost::system::error_code ec;
             m_ping_timer->expires_from_now(milliseconds(m_ping_interval), ec);
-            if(ec)LOG("ec:"<<ec.message()<<endl){};
+            //if(ec)LOG("ec:"<<ec.message()<<endl){};
             m_ping_timer->async_wait(lib::bind(&client_impl::ping,this,lib::placeholders::_1));
             LOG("On handshake,sid:"<<m_sid<<",ping interval:"<<m_ping_interval<<",ping timeout"<<m_ping_timeout<<endl);
             return;

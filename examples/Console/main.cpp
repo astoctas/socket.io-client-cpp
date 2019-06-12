@@ -111,7 +111,8 @@ MAIN_FUNC
     h.set_open_listener(std::bind(&connection_listener::on_connected, &l));
     h.set_close_listener(std::bind(&connection_listener::on_close, &l,std::placeholders::_1));
     h.set_fail_listener(std::bind(&connection_listener::on_fail, &l));
-    h.connect("http://127.0.0.1:3000");
+    h.connect("http://127.0.0.1:4268");
+
     _lock.lock();
     if(!connect_finish)
     {
@@ -119,6 +120,12 @@ MAIN_FUNC
     }
     _lock.unlock();
 	current_socket = h.socket();
+	string param = "{ index: 1, method: 'on' }";
+	auto message = sio::object_message::create();
+	message->get_map()["index"] = sio::int_message::create(1);
+	message->get_map()["method"] = sio::string_message::create(std::string("on"));
+	current_socket->emit("OUTPUT", message );
+
 Login:
     string nickname;
     while (nickname.length() == 0) {

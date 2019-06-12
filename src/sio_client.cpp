@@ -3,6 +3,7 @@
 //
 //  Created by Melo Yao on 3/25/15.
 //
+#include "stdafx.h"
 
 #include "sio_client.h"
 #include "internal/sio_client_impl.h"

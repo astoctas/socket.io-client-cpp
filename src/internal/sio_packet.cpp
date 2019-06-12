@@ -3,6 +3,7 @@
 //
 //  Created by Melo Yao on 3/22/15.
 //
+#include "stdafx.h"
 
 #include "sio_packet.h"
 #include <rapidjson/document.h>
